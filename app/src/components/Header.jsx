@@ -19,7 +19,9 @@ export function Header(props) {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/signup">Signup</Nav.Link>
-                        
+                        <Nav.Link href="/signin">Signin</Nav.Link>
+
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
