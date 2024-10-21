@@ -10,7 +10,7 @@ import { Signin } from './pages/Signin';
 import { firebaseConfig } from './Config/Config';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from './contexts/AuthContext';
 
 
 function App() {

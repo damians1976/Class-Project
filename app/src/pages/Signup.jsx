@@ -27,7 +27,7 @@ export function Signup(props) {
                 <Row>
                     <Col md={{ span: 4, offset: 4 }}>
                         <Form className="mt-4" onSubmit={ (event) => signUpUser(event) }>
-                            <h2>Sign up for an account</h2>
+                            <h4>Sign up for an account</h4>
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control 

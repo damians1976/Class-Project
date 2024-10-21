@@ -6,44 +6,44 @@ import { AuthContext } from '../contexts/AuthContext';
 import { useContext } from 'react';
 
 export function Header(props) {
-    const authState = useContext ( AuthContext )
-    
-    if ( !authState ) {
-    return (
-        
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container fluid>
-                <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/signup">Signup</Nav.Link>
-                        <Nav.Link href="/signin">Signin</Nav.Link>
+    const authState = useContext(AuthContext)
 
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    )
-}
+    if (!authState) {
+        return (
 
-else {
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container fluid>
+                    <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/signup">Signup</Nav.Link>
+                            <Nav.Link href="/signin">Signin</Nav.Link>
 
-    return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-            <Container fluid>
-                <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/logout">Log out</Nav.Link>
-                        
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-    )
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        )
+    }
+
+    else {
+
+        return (
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container fluid>
+                    <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/logout">Log out</Nav.Link>
+
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        )
+    }
 }

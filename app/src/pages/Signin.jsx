@@ -26,7 +26,7 @@ export function Signin(props) {
                 <Row>
                     <Col md={{ span: 4, offset: 4 }}>
                         <Form className="mt-4" onSubmit={ (event) => signInUser(event) }>
-                            <h2>Sign in to your account</h2>
+                            <h4>Sign in to your account</h4>
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control 
