@@ -6,9 +6,39 @@ import Col from 'react-bootstrap/Col'
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export function Signup(props) {
+
+    const [ password, setPassword ] = useState('')
+    const [ validpassword, setValidPassword ] = useState( false )
+
     const navigate = useNavigate()
+    const reqNumbers = "0123456789"
+    const reqChars ="abcdefghijklmnopqrstuvwxyz"
+    const reqCaps ="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const reqSymbols ="!@#$%^&*()_-+=?"
+
+    const includesNumbers = () => {
+        const numbersArray = reqNumbers.split('')
+        let result = false
+        numbersArray.forEach( ( number ) => {
+            if( password.includes(number)) {
+                result = true
+            }
+
+        })
+        return result 
+    }
+
+    useEffect{ () => {
+        if( password.length >= 8 && password.length <= 15) {
+            setValidPassword( true )
+        }
+        else {
+            setValidPassword( false )
+        }
+    } , [ password ]}
 
     const signUpUser = (event) => {
         event.preventDefault()
@@ -42,9 +72,16 @@ export function Signup(props) {
                                 type="password" 
                                 placeholder="minimum 6 characters"
                                 name="password"
+                                value={ password }
+                                onChange{ (event) => setPassword( event.target.value)}
                                 />
                             </Form.Group>
-                            <Button type="submit" variant="primary" className="my-3 mx-auto d-block w-50">
+                            <Button 
+                            type="submit" 
+                            variant="primary" 
+                            className="my-3 mx-auto d-block w-50"
+                            disabled = { (validpassword) ? false : true }
+                            >
                                 Sign up
                             </Button>
                         </Form>
