@@ -31,8 +31,40 @@ export function Signup(props) {
         return result 
     }
 
+
+    const includesChars = () => {
+        const charsArray = reqChars.split('')
+        let result = false 
+        charsArray.forEach( (char) => { 
+            if( password.includes(char) ) {
+                result = true
+            }
+        } )
+        return result
+    }
+
+    const includesSymbols = () => {
+       const symbolsArray = reqSymbols.split('')
+       let result = false
+       symbolsArray.forEach( (symbol) => {
+        if( password.includes (symbol)) {
+            result = true
+        }
+       })
+       return result
+    }
+
+
     useEffect{ () => {
-        if( password.length >= 8 && password.length <= 15) {
+        if( 
+        (password.length >= 8 && password.length <= 15)
+         && includesNumbers() == true  
+         && includesChars() == true
+         && includesCaps() == true
+         && includesSymbols() == true
+
+        ) 
+        {
             setValidPassword( true )
         }
         else {
@@ -70,11 +102,14 @@ export function Signup(props) {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control 
                                 type="password" 
-                                placeholder="minimum 6 characters"
+                                placeholder="minimum 8 characters"
                                 name="password"
                                 value={ password }
                                 onChange{ (event) => setPassword( event.target.value)}
                                 />
+                                <Form.Text>Password must contain at least one uppercase, lowercase, a number and a symbol and be between 8 and 15 characters long
+
+                                </Form.Text>
                             </Form.Group>
                             <Button 
                             type="submit" 
