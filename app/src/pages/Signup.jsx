@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 export function Signup(props) {
 
@@ -31,6 +31,16 @@ export function Signup(props) {
         return result 
     }
 
+    const includesCaps = () => {
+        const capsArray = reqCaps.split('')
+        let result = false
+        capsArray.forEach( (cap) => {
+            if( password.includes(cap) ) {
+                result = true
+            }
+        } )
+        return result
+    }
 
     const includesChars = () => {
         const charsArray = reqChars.split('')
@@ -55,7 +65,7 @@ export function Signup(props) {
     }
 
 
-    useEffect{ () => {
+    useEffect( () => {
         if( 
         (password.length >= 8 && password.length <= 15)
          && includesNumbers() == true  
@@ -70,7 +80,7 @@ export function Signup(props) {
         else {
             setValidPassword( false )
         }
-    } , [ password ]}
+    } , [ password ])
 
     const signUpUser = (event) => {
         event.preventDefault()
@@ -105,7 +115,7 @@ export function Signup(props) {
                                 placeholder="minimum 8 characters"
                                 name="password"
                                 value={ password }
-                                onChange{ (event) => setPassword( event.target.value)}
+                                onChange = { (event) => setPassword( event.target.value)}
                                 />
                                 <Form.Text>Password must contain at least one uppercase, lowercase, a number and a symbol and be between 8 and 15 characters long
 
