@@ -38,8 +38,17 @@ export function Home(props) {
     return{
       <Col md={3}>
         <Card>
+        <Card.Img 
+        variant = "top" 
+        src={ "/book_covers/" + book.cover} 
+        style={{maxWidth:"100%"}}
+        />
+
           <Card.Body>
             <Card.Title>{book.title} </Card.Title>
+            <Card.Text>
+              A book by {book.author}
+            </Card.Text>
           </Card.Body>
         </Card>
       </Col>
