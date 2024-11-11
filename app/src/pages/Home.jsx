@@ -35,7 +35,7 @@ export function Home(props) {
   }, [booksLoaded])
 
   const Books = bookdata.map(( book ) => {
-    return{
+    return(
       <Col md={3}>
         <Card>
         <Card.Img 
@@ -52,7 +52,7 @@ export function Home(props) {
           </Card.Body>
         </Card>
       </Col>
-    }
+    )
   })
 
   return (
