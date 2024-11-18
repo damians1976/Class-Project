@@ -6,46 +6,47 @@ import { useState, useEffect, useContext } from 'react'
 import { FirestoreContext } from '../contexts/FirestoreContext'
 import { doc, getDoc } from 'firebase/firestore'
 
-export function BookDetail( props ) {
-    const[ book, setBook ] = useState()
-    
+export function BookDetail(props) {
+    const [book, setBook] = useState()
+
     const params = useParams()
 
-    const db = useContext( FirestoreContext )
-    const getBookDetail = async ( id ) => {
-        const ref = doc( db, "books", params.bookId)
-        const detail = await getDoc( ref )
+    const db = useContext(FirestoreContext)
+    const getBookDetail = async (id) => {
+        const ref = doc(db, "books", params.bookId)
+        const detail = await getDoc(ref)
         let bookObject = detail.data()
         bookObject.id = detail.id
-        setBook( bookObject )
+        setBook(bookObject)
     }
 
-    useEffect( () => {
+    useEffect(() => {
         getBookDetail()
-    }, [ book ])
+    }, [book])
 
-    if ( book ) {
+    if (book) {
         document.title = book.title
-    
-        return(
-        <Container>
-            <Row>
-                <Col md={12}>
-                    <h1>{ book.title }</h1>
-                </Col>
-                <Col md={6}>
-                    <img className="w-100" src={"book_covers" + book.cover} />
-                </Col>
-                <Col md={6}>
-                <p>{book.title} by { book.author }</p>
-                </Col>
-            </Row>
 
-        </Container>
-    )
-}
-else{
-    return( 
-        <p>...Loading</p>
-    )
+        return (
+            <Container>
+                <Row>
+                    <Col md={12}>
+                        <h1>{book.title}</h1>
+                    </Col>
+                    <Col md={6}>
+                        <img className="w-100" src={"/book_covers/" + book.cover} />
+                    </Col>
+                    <Col md={6}>
+                        <p>{book.title} by {book.author}</p>
+                    </Col>
+                </Row>
+
+            </Container>
+        )
+    }
+    else {
+        return (
+            <p>...Loading</p>
+        )
+    }
 }
