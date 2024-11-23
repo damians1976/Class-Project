@@ -3,11 +3,22 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+import Alert from "react-bootstrap/Alert"
 
 import { collection, addDoc } from 'firebase/firestore'
-export function AddBook( props ) {
+import { FirestoreContext } from '../../contexts/FirestoreContext'
+import { useContext, useState } from "react"
 
-    const createBook = (event) => {
+export function AddBook( props ) {
+    const [ show, setShow ]=useState( true )
+    const [ message, setMessage ]= useState ('')
+    
+    let alertType = 'success'
+    
+    const db = useContext(FirestoreContext)
+
+
+    const createBook = async (event) => {
         event.preventDefault()
         const fd = new FormData(event.target)
         const book = {
@@ -17,7 +28,24 @@ export function AddBook( props ) {
             cover: fd.get('cover'),
             category: fd.get('category'),
             language: fd.get('language'),
+            active: true
         }
+        const ref = collection( db, "books" )
+        const docRef = await addDoc( ref, book )
+        if (docRef.id){
+            //console.log("successful")
+            event.target.reset()
+            setMessage('Adding book was successful')
+            setShow = (true)
+            alertType = 'success'
+        }
+        else {
+            //console.log("failed")
+            alertType = 'danger'
+            setMessage('Adding book was unsuccessful')
+            setShow = (true)
+        }
+        setTimeout( () => {setShow( false )}, 3000)
     }
 
     return (
@@ -86,6 +114,9 @@ export function AddBook( props ) {
                     </Form.Group>
                     <Button type="submit" variant="primary" className="mt-4 w-100">Add book</Button>
                 </Form>
+                <Alert variant={alertType} show={show} className="my-4">
+                    {message}
+                </Alert>
                 </Col>
             </Row>
         </Container>
