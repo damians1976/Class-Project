@@ -5,12 +5,13 @@ import Button from 'react-bootstrap/Button'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { FirestoreContext } from '../contexts/FirestoreContext'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { AuthContext } from '../contexts/AuthContext'
 
 export function BookDetail(props) {
     const [book, setBook] = useState()
     const [signedIn, setSignedIn] = useState( false )
+    const [borrowed, setBorrowed = useState(false)]
 
     const params = useParams()
 
@@ -33,13 +34,35 @@ export function BookDetail(props) {
         const detail = await getDoc(ref)
         let bookObject = detail.data()
         bookObject.id = detail.id
+        if( bookObject.onloan) {
+            setborrowed (true)
+        }
+        
         setBook(bookObject)
     }
+
+    const borrowBook = async () => {
+
+    const ref = doc(db, "books", book.id)
+    const update = await updateDoc( ref, {onloan: true})
+    //let tempbook = book
+    //tempbook.onloan = true
+    //setBook(tempbook)
+    setBorrowed(true)
+    const loanRecord = await addDoc()
+
+    }
+
     const BorrowButton = (props) => {
         if (signedIn) {
         return (
-            <Button type="button" variant="primary">
-                Borrow this book
+            <Button 
+            type="button" 
+            variant="primary" 
+            onClick={ () => borrowBook () }
+            disabled = { (borrowed) ? true: false}
+            >
+                { (borrowed) ? "This book is on loan" : "Borrow this book"}
             </Button>
         )
         } else {
@@ -47,7 +70,9 @@ export function BookDetail(props) {
         }
     }
     useEffect(() => {
+        if (!book) {
         getBookDetail()
+    }
     }, [book])
 
     if (book) {
