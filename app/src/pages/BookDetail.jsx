@@ -49,7 +49,14 @@ export function BookDetail(props) {
     //tempbook.onloan = true
     //setBook(tempbook)
     setBorrowed(true)
-    const loanRecord = await addDoc()
+    const loanRecord = await addDoc(
+        collection( db, "loans"), {
+            bookId: book.id,
+            bookTitle: book.title,
+            userId: auth.uid,
+            time: serverTimestamp()
+        }
+    )
 
     }
 
