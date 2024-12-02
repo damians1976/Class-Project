@@ -85,7 +85,7 @@ export function AddBook( props ) {
                         <Form.Label>Cover Image</Form.Label>
                         <Form.Control 
                         type="text" 
-                        name="title" 
+                        name="cover" 
                         placeholder="Filename of cover image" 
                         required
                         />

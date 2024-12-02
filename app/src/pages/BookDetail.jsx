@@ -11,7 +11,7 @@ import { AuthContext } from '../contexts/AuthContext'
 export function BookDetail(props) {
     const [book, setBook] = useState()
     const [signedIn, setSignedIn] = useState( false )
-    const [borrowed, setBorrowed = useState(false)]
+    const [borrowed, setBorrowed] = useState(false)
 
     const params = useParams()
 
@@ -35,7 +35,7 @@ export function BookDetail(props) {
         let bookObject = detail.data()
         bookObject.id = detail.id
         if( bookObject.onloan) {
-            setborrowed (true)
+            setBorrowed (true)
         }
         
         setBook(bookObject)
