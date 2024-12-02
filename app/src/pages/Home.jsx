@@ -37,7 +37,7 @@ export function Home(props) {
 
   const Books = bookdata.map(( book, key ) => {
     return(
-      <Col md={3} key={key}>
+      <Col md={3} className="mt-3" key={key}>
         <Card>
         <Card.Img 
         variant = "top" 
