@@ -7,7 +7,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { FirestoreContext } from '../../contexts/FirestoreContext'
 import { useContext, useState, useEffect } from 'react'
 
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc, doc, serverTimestamp } from 'firebase/firestore'
 
 export function ListLoans(props) {
     const [loans, setLoans] = useState([])
@@ -28,9 +28,11 @@ export function ListLoans(props) {
         })
         setLoans(loans)
     }
-    const returnBook = async (bookId) => {
+    const returnBook = async (bookId, loanId ) => {
         const ref = doc(db, "books", bookId)
         const update = await updateDoc(ref, {onloan: false})
+        const loanRef = doc( db, "loans", loanId)
+        const updateLoan = await updateDoc(loanRef, {returned: serverTimestamp ()})
     }
     
     useEffect(() => {
@@ -40,10 +42,18 @@ export function ListLoans(props) {
     }, [loaded])
 
     const BookLoans = loans.map((loan, key) => {
-        
+        const date = new Date loan.time.toDate()
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
+        const dt = date.getDate()
+        const hr = date.getHours()
+        const min = date.getMinutes()
+        const sec = date.getSeconds()
+        const dateString = `$(dt)/$(month)/$(year) $(hr):$(min):$(sec)`
+
         return (
             <Row className="my-3" key = {key}>
-                <Col>{loan.time.seconds}</Col>
+                <Col>{dateString}</Col>
                 <Col>{loan.bookTitle}</Col>
                 <Col>{loan.bookId}</Col>
                 <Col>{loan.userId}</Col>
@@ -51,7 +61,8 @@ export function ListLoans(props) {
                     <Button 
                     type="button" 
                     variant="primary" 
-                    onClick={ () => returnBook( loan.bookId)}>
+                    onClick={ () => returnBook( loan.bookId, loan.id)}>
+                        disabled = {(loan.returned) ? true: false}
                         Returned
                     </Button>
                 </Col>
