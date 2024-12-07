@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import { AuthContext } from '../../contexts/AuthContext'
 import { FirestoreContext } from '../../contexts/FirestoreContext'
 import { useContext, useState, useEffect } from 'react'
-
+import { useNavigate } from "react-router-dom"
 import { collection, getDocs, updateDoc, doc, serverTimestamp } from 'firebase/firestore'
 
 export function ListLoans(props) {
@@ -16,6 +16,11 @@ export function ListLoans(props) {
 
     const auth = useContext(AuthContext)
     const db = useContext(FirestoreContext)
+
+    const navigate = useNavigate()
+    useEffect( () => {
+
+    }, [props.mode])
 
     const getLoans = async () => {
         const loansRef = collection(db, "loans")

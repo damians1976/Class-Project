@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { AuthContext } from '../contexts/AuthContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
 export function Header(props) {
@@ -29,7 +29,7 @@ export function Header(props) {
         )
     }
 
-    else {
+    else if (authState && props.mode == false ) {
 
         return (
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -39,6 +39,8 @@ export function Header(props) {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link as={Link} to="/admin/addbook">Add Book</Nav.Link>
+                            <Nav.Link as={Link} to="/admin/listloans">Loans</Nav.Link>
                             <Nav.Link as={Link} to="/logout">Log out</Nav.Link>
 
                         </Nav>

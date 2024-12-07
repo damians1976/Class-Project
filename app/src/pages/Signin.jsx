@@ -35,7 +35,15 @@ export function Signin(props) {
         signInWithEmailAndPassword( props.authapp, email, password)
         .then ( (response) => {
             const userId = response.user.uid
-            //navigate("/")
+            checkAdmin(userId).then( (result) => {
+                if (result == true) { 
+                    props.admin (true)}
+                else {
+                    props.admin (false)
+                }
+            })
+           
+            navigate("/")
     })
         .catch ( (error) => console.log(error) )
     }
